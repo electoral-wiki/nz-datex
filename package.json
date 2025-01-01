@@ -1,0 +1,25 @@
+{
+  "name": "nz-datex",
+  "module": "src/main.ts",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint",
+    "fmt": "prettier -w '**/*.ts'",
+    "check-format": "prettier -c '**/*.ts'"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/express": "^5.0.0",
+    "eslint": "^9.17.0",
+    "prettier": "^3.4.2",
+    "prisma": "^6.1.0",
+    "typescript-eslint": "^8.19.0"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@prisma/client": "6.1.0",
+    "@xmldom/xmldom": "^0.9.6"
+  }
+}

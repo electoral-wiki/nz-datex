@@ -1,0 +1,72 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Parliament {
+  id Int @id @default(autoincrement())
+
+  number    Int       @unique
+  startDate DateTime  @db.Date
+  endDate   DateTime? @db.Date
+
+  bills Bill[]
+}
+
+model Bill {
+  id Int @id @default(autoincrement())
+
+  uuid   String @unique @db.VarChar(255)
+  name   String @db.VarChar(255)
+  number String @unique
+
+  parliament       Parliament @relation(fields: [parliamentNumber], references: [number])
+  parliamentNumber Int
+
+  hansards Hansard[]
+}
+
+model Hansard {
+  id Int @id @default(autoincrement())
+
+  documentId String @unique
+  status     String
+
+  bill       Bill   @relation(fields: [billNumber], references: [number])
+  billNumber String
+
+  quotes   HansardQuote[]
+  BillVote BillVote[]
+}
+
+model HansardQuote {
+  id Int @id @default(autoincrement())
+
+  hansard   Hansard @relation(fields: [hansardId], references: [id])
+  hansardId Int
+
+  ord         Int
+  speaker     String  @db.VarChar(255)
+  speakerNote String? @db.VarChar(255)
+  quote       String  @db.Text
+}
+
+model BillVote {
+  id Int @id @default(autoincrement())
+
+  hansard   Hansard @relation(fields: [hansardId], references: [id])
+  hansardId Int
+
+  voterGroup String @db.VarChar(255)
+  voteCount  Int
+}
