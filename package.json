@@ -5,7 +5,10 @@
   "scripts": {
     "lint": "eslint",
     "fmt": "prettier -w '**/*.ts'",
-    "check-format": "prettier -c '**/*.ts'"
+    "check-format": "prettier -c '**/*.ts'",
+    "dev:run": "docker compose -f dev.docker-compose.yml up",
+    "dev:up": "docker compose -f dev.docker-compose.yml -d up",
+    "dev:down": "docker compose -f dev.docker-compose.yml down"
   },
   "devDependencies": {
     "@types/bun": "latest",
@@ -20,6 +23,7 @@
   },
   "dependencies": {
     "@prisma/client": "6.1.0",
-    "@xmldom/xmldom": "^0.9.6"
+    "@xmldom/xmldom": "^0.9.6",
+    "express": "^4.21.2"
   }
 }
